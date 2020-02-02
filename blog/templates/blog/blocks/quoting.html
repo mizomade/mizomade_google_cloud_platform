@@ -1,0 +1,32 @@
+{% load static wagtailcore_tags%}
+<style>
+
+blockquote {
+  margin-left: 0;
+  padding-left: 1em;
+  border-left: 5px solid deepPink;
+  background-color:rgba(255, 219, 226,0.5);
+  padding:30px;
+
+}
+
+
+.fonting {
+    font-size:20px;
+    color:rgba(0,0,0,0.5);
+    font-family:Abril Fatface;
+    
+}
+.blockquote-footer{
+    font-size:15px;
+    font-family:
+}
+</style>
+<div class=container>
+<blockquote class="blockquote" >
+<p class="fonting">"{{self.quote}}"</p>
+
+ <footer class="blockquote-footer">{{self.quotedby}}</footer>
+</blockquote>
+</div>
+

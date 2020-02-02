@@ -1,0 +1,20 @@
+# runtime: python37
+
+# handlers:
+# - url : /static
+#   static_dir: static/
+
+# - url : /.*
+#   script: auto
+
+# env_variables:
+#   DJANGO_SETTINGS_MODULE: mizomade.settings.production
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT mizomade.wsgi
+
+beta_settings:
+    cloud_sql_instances: mizomade-266914:us-central1:mizodb
+
+runtime_config:
+  python_version: 3

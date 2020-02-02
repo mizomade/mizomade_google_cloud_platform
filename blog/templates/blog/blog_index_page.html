@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mizomade.css' %}">
+
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+
+
+{% block content %}
+<p style=padding:10px;></p>
+
+<div class="container" style="padding-left:30px;"> 
+  
+<h1 style=font-family:Raleway;font-size:20px;>Recently Updates</h1>
+<hr>
+
+  <div class="row">
+   
+    {% for post in blogpages %}
+
+
+      {% with post=post.specific %}
+   
+  
+  
+      <div class="column" style=padding:10px;>
+
+      <div class="bawm card rounded-0">
+
+
+ 
+
+
+      {% with post.main_image as main_image %}
+      {% image main_image fill-320x200 as mn %}
+
+          {% if  mn %}
+  
+            <a href="{% pageurl post %}" > <img src="{{mn.url}}" class="card-img-top rounded-0" ></a>
+  
+          {% endif %}
+
+      {% endwith %} 
+
+        <div class="card-body" style="background-color:rgba(0,0,0,0);">
+        {% with post.categories.all as cats %}
+        {% for cat in cats %}
+          
+          {% comment %} <button   class="btn btn-primary btn-sm rounded-0" type="button" style="background-color:{{cat.categorycolor}};border-color:{{cat.categorycolor}};padding:3px;max-height:2em;"><small><strong>{{cat.name}}</strong></small> </button> {% endcomment %}
+          <button   class="btn btn-primary btn-sm rounded-0" type="button" style="background-color:darkslategrey;border-color:darkslategrey;padding:3px;max-height:2em;"><small><strong>{{cat.name}}</strong></small> </button>
+        
+        {% endfor %}        
+        {% endwith %}
+        <p>
+  
+            <h5 class="card-title text-truncate" style="font-family:Oswald;color:black;min-width:300px;max-width:300px;font-size:1.5em;">{{post.title}}</h5>
+    
+            <p class="card-text"><small class="text-muted">{{post.Author}} - {{post.date}}</small></p>
+            
+
+ 
+        </div><!- card body!>
+
+  
+
+      </div><!- bawm-!>
+        </div> <!- column-!>
+
+
+        
+   {% endwith %} 
+ {% endfor %} 
+
+
+
+
+   </div><!- row -!>
+
+   <hr>
+   </div> <!- container - !>
+   
+
+
+
+   <div class="container" style="text-align:center;">
+   <h1><strong>CATEGORIES</strong></h1>
+   <div class="row">
+   {% for cat in cata %}
+   <div class="column">
+
+     <div class=" bawmte">
+  
+      <a href="{% slugurl 'category' %}?category={{cat.name}}" style="color:white;"><p>{{cat.name}}</p></a>
+      
+   
+  </div>
+
+
+   
+  
+  </div> 
+
+    {% endfor %}
+
+
+   </div> 
+   <hr>
+   
+   </div><! container !>
+
+   {% for cat in cata %}
+   
+   <a href="{% slugurl 'category' %}?category={{cat.name}}" class="btn btn-lg rounded-0 btn-dark btn-block" style="background-color:rgba(0,0,0,0.9);">
+   <p style="font-size:40px;font-family:Oswald,'bold';">{{cat.name}}</p>
+{% comment %} <p class="center" style="color:Black;font-size:2em;"><button type ="button" class="btn btn-lg rounded-0 btn-dark btn-block" >{{cat.name}}</button></p> {% endcomment %}
+   </a>
+   <div class ="container" style=padding:5px;>
+   <div class="text-center">
+
+    {% comment %} <div id="first">
+      <div id="second"> <p style="font-size:2em;color:wheat;">  {{cat.name}} </p></div>
+     </div> {% endcomment %}
+   
+        
+{% comment %} <div class="dividing text-center">
+<strong style="color:white;font-size:2em;">{{cat.name}}</strong>
+</div> {% endcomment %}
+
+         
+          {% comment %} {% with cat.icon as icons %}
+                 {% image icons max-30x30  as mnn %}
+                   
+                    <a href="{% slugurl 'category' %}?category={{cat.name}}">
+                    <button type ="button" class="btn btn-outline" 
+                    style="border-color:{{cat.categorycolor}};color:{{cat.categorycolor}};">
+                    <img src="{{mnn.url}}" class="img-circle">
+                {% endwith %}
+
+       <strong >{{cat.name}}:</strong>
+              </button></a>
+          <hr style="color={{cat.categorycolor}};" > {% endcomment %}
+    
+    </a></div> 
+    </div> <!- container -!>
+
+
+<div class=container>
+  <div class="row">
+ 
+  {% for post in blogcatlist %}
+    {% with post=post.specific %}
+     {% for category in post.categories.all %}
+      {% if category.name == cat.name %}
+
+        
+            
+
+       
+        
+          <div class="column" style="padding:10px">
+
+     
+<div class="card bg-dark text-white bawmdang">
+  {% with post.main_image as main_image %}
+                  {% image main_image fill-200x200  as mn %}
+                  {% if mn %}
+                        <a href="{% pageurl post %}" class="stretched-link"><img src="{{mn.url}}" class="card-img"></a>
+                  {% endif %}
+            {% endwith %}
+  <div class="card-img-overlay" style="background-color:rgba(0,0,0,0.5)">
+     <h5 class="card-title "><strong>{{post.title}}</strong></h5 >
+        <p class="card-text">{{post.Author}}</p>
+        <p class="card-text"><small class="text-muted">{{post.date}}</small></p>
+  </div>
+</div>
+
+
+          </div> <! column !>
+
+      {% endif %}
+    {% endfor %} 
+  {% endwith %}
+  {% endfor %}
+    
+  </div>
+
+ 
+   </div>
+
+
+           
+            
+{% comment %} <div class=container>
+  <div class="row">
+  {% for post in blogcatlist %}
+    {% with post=post.specific %}
+     {% for category in post.categories.all %}
+      {% if category.name == cat.name %}
+            
+          <div class="column" style="padding:10px">
+
+           <div class="bawm card">
+
+
+              {% with post.main_image as main_image %}
+              {% image main_image fill-320x200  as mn %}
+              {% if mn %}
+              
+              <a href="{% pageurl post %}" > <img src="{{mn.url}}" class="card-img-top" > </a>
+              
+              {% endif %}
+              {% endwith %} 
+
+            <div class="card-body">
+            
+  
+            <h5 class="card-title text-truncate" style="font-family:Oswald;color:black;min-width:200px;max-width:250px;">{{post.title}}</h5>
+  
+              <p class="card-text"><small class="text-muted">{{post.date}}</small></p>
+            </div>
+
+            </div> <! bawm !> 
+          </div> <! column !>
+
+      {% endif %}
+    {% endfor %} 
+  {% endwith %}
+  {% endfor %}
+    </div> <! row !>
+  
+</div><! inner container !> {% endcomment %}
+   {% endfor %}
+
+
+  <br>
+</div><! container !>
+
+
+
+{% endblock %}

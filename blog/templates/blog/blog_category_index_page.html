@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+{% block content %}
+<p style=padding-top:20px;></P>
+<div class=container >
+
+    {% if request.GET.category|length %}
+        <h1></small> Category:</small><strong> "{{ request.GET.category }}"</strong></h1>
+    {% endif %}
+
+    {% comment %} {% for blogpage in blogpages %}
+
+          <p>
+              <strong><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></strong><br />
+              <small>Revised: {{ blogpage.latest_revision_created_at }}</small><br />
+              {% if blogpage.author %}
+                <p>By {{ blogpage.author.profile }}</p>
+              {% endif %}
+          </p>
+
+
+
+
+    
+    {% empty %}
+        No pages found with that tag.
+    {% endfor %} {% endcomment %}
+<div class="row">
+{% for post in blogpages %}
+    {% with post=post.specific %}
+<div class="column align-content-center" style=padding:5px;>
+    <div class="card categorybawm ">
+
+
+            {% with post.main_image as main_image %}
+                    {% image main_image fill-320x200 as mn %}
+                    <a href="{% pageurl post %}"> <img src="{{mn.url}}" class="card-img-top" alt="..."></a>
+            {% endwith %} 
+
+        <div class="card-body">
+            <h5 class="card-title" style="font-family:Oswald">{{post.title}}</h5>
+    {% comment %} <p class="card-text">{{ post.intro }}</p> {% endcomment %}
+            <p class="card-text"><small class="text-muted">{{post.date}}</small></p>
+        </div>
+    </div>
+</div>
+
+{% endwith %}
+{% endfor %}
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,143 @@
+{% load static wagtailuserbar %}
+{% load static wagtailcore_tags  wagtailimages_tags%}
+      {% comment %} {% load account %} {% endcomment %}
+
+
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon_io/favicon.ico' %}"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon_io/apple-touch-icon.png' %}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon_io/favicon-32x32.png' %}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon_io/favicon-16x16.png' %}"/>
+        <link rel="manifest" href="/site.webmanifest">
+        <link href="{% static 'css/all.css' %}" rel="stylesheet">
+
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+                {% with self.get_site.site_name as site_name %}
+                    {% if site_name %}- {{ site_name }}{% endif %}
+                {% endwith %}
+            {% endblock %}
+   
+
+        </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Global stylesheets #}
+        {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/font/css/open-iconic-bootstrap.min.css' %}"> {% endcomment %}
+  {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> {% endcomment %}
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mizomade.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+
+         <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Jomolhari|Abril+Fatface|Oswald|Lato|Open+Sans|Raleway|Roboto|Source+Sans+Pro|Yanone+Kaffeesatz|Pacifico&display=swap" rel="stylesheet">
+
+
+        {% block extra_css %}
+            {# Override this in templates to add extra stylesheets #}
+            
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mizomade.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+
+
+        {% endblock %}
+        
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}" style="background-color:rgba(0,0,0,0.05)">
+        {% comment %} {% wagtailuserbar %} {% endcomment %}
+{% comment %} <nav class="navbar navbar-expand-lg navbar-light align-content-center"  style="background-color: white;"> {% endcomment %}
+  <div>
+        <a class="navbar-brand " href="{% slugurl 'blog' %}" >
+        {% comment %} <strong style="font-family:Oswald;">MizoMade</strong>.com {% endcomment %}
+        {% comment %} <img src="{% static "images/logo.png" %}" height=50px weight =50px alt="" >
+        </a> 
+  <div id="content-desktop” class="hidden-sm hidden-xs">
+  
+        <a class="nav-link hidden-md" href="{% slugurl 'home' %}"> Home <span class="sr-only">(current)</span></a>
+   
+</div> {% endcomment %}
+
+{% comment %} </nav>  {% endcomment %}
+
+
+<a class="navbar-brand text-center" href="{% slugurl 'blog' %}" >
+        {% comment %} <strong style="font-family:Oswald;">MizoMade</strong>.com {% endcomment %}
+        <img src="{% static "images/logo.png" %}" height=50px weight =50px alt="MizoMade.com" >
+        </a> 
+         {% comment %} <form class="form-inline " action="{% url 'search' %}" method="get">
+      <input class="form-control " type="text" placeholder="Search" aria-label="Search"name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
+      <button class="btn btn-outline-primary btn-block" type="submit">Search</button>
+    </form> {% endcomment %}
+
+
+<nav class="navbar sticky-top navbar-expand-lg " style="background-color:rgba(0,0,0,0.85);">
+
+    <a class="nav-link d-lg-none d-xl-none" href="{% slugurl 'blog' %}"><strong style="font-family:Oswald;font-size:1.5em;color:white;">MizoMade<small>.com</small></strong> </a>
+    <button class="navbar-toggler  custom-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon " ><i class="fa fa-bars" style="color:#fff; font-size:28px;"></i></span>
+      </button>
+      
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+   <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
+      <input class="form-control  mr-sm-2" type="text" placeholder="Search" aria-label="Search"name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    {% for cat in cata%}
+      
+        <ul class="navbar-nav mr-auto">
+           <li class="nav-item active text-center" style="padding:2px;font-family:Oswald;">
+            <a class="nav-link" style="color:white;" href="{% slugurl 'category' %}?category={{cat.name}}"> {{cat.name}} </a>
+
+            </li>
+
+        </ul>
+    {% endfor %}
+
+      
+          </div>
+</nav>
+
+    
+
+
+
+      
+    
+    
+
+{% comment %} {% block foo %}
+   {% include "menu.html" %}
+{% endblock %} {% endcomment %}
+   
+
+
+        {% block content %}{% endblock %}
+
+        {% block foo %}
+   {% include "menu.html" %}
+{% endblock %} 
+
+        {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/mizomade.js' %}"></script>
+        <script defer src="{% static 'js/all.js' %}"></script> 
+
+        {% block extra_js %}
+            {# Override this in templates to add extra javascript #}
+        {% endblock %}
+    </body></div>
+</html>

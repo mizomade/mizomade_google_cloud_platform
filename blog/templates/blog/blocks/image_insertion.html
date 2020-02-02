@@ -1,0 +1,15 @@
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+<div  class = "container-fluid " style="float: center;">
+{% image self.image max-1000x1000 as mn %}
+    
+<img src= "{{mn.url}}" class="container-fluid">
+{% if self.caption %}
+<p class="text-muted text-center" style="float:center;font-family:Roboto;">{{self.caption}}</p>
+
+{% else %}
+{% endif %}
+</div>
+
+

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+
+
+    <p style=padding:10px;>
+<div class="container col-lg-9  ">
+
+    <div class="container text-center ">
+        <h1 style="font-size:2em;
+        font-family: 'Abril Fatface', cursive;">{{ page.title }}</h1>
+        <div class="text-muted" style="font-family:Oswald">{{ page.intro }}</div>
+
+        <p class="meta" >{{ page.date }}</p>
+        <p style="font-family:Oswald">-{{page.Author}}</p>
+    </div>
+
+    
+      
+
+    {% comment %} {{ page.body }} {% endcomment %}
+       {% for item in page.gallery_images.all %}
+        <div style="float: center; margin: 1px;"> <! init 10 px !>
+            {% image item.image fill-3600x2000 as im %}
+            <img src={{im.url}} class="container-fluid" >
+            <p class="text-center" style="font-family: Jomolhari, sans-serif;color:rgba(0,0,0,0.45)">
+            {{ item.caption }}</p>
+            <br>
+        </div>
+     {% endfor %}
+    
+    
+    <div class=" text-justify ">
+    <article style="font-size:18px;font-family:Source Sans Pro">
+    {% for block in page.body%}
+    {% if block.block_type == 'heading'%}
+        <h1 >{{block.value}}</h1>
+    {% else %}
+    <section id="hmasa">{% include_block block%}</section>
+    {% endif %}
+    {% endfor %}
+
+    </article>
+    </div>
+
+
+ 
+<br>
+    <div class="sizing" >
+    {% with categories=page.categories.all %}
+    {% if categories %}
+    <h6 style=font-family:Oswald> 
+    
+    {% comment %} <ul> {% endcomment %}
+      <p style="font-family:Oswald">Category:</p> 
+
+   {% for category in categories %}
+         {% comment %} <li style="display:inline"> {% endcomment %}
+        {% comment %} {% image category.icon fill-32x32 style="vertical-align:middle" %} {% endcomment %}
+    {% comment %} <p style="font-family:Oswald">Category:</p> {% endcomment %}
+         
+     {% with category.icon as icons %}
+                 {% image icons max-30x30  as mnn %}
+                   
+                    <a href="{% slugurl 'category' %}?category={{category}}">
+                    <button type ="button" class="btn btn-outline" 
+                    style="border-color:{{category.categorycolor}};color:{{category.categorycolor}}">
+                    <img src="{{mnn.url}}" class="img-circle">
+                {% endwith %}
+       
+       {{category.name}}
+ 
+       </button>
+       </a>
+        {% comment %} </li> {% endcomment %}
+    {% endfor %}
+    {% comment %} </ul> {% endcomment %}
+    </h6>
+    {% endif %}
+    
+    {% endwith %}
+    </div>
+    <hr>
+
+{% if page.tags.all.count %}
+    
+        Tags: <h3>
+        {% for tag in page.tags.all %}
+           <a href="{% slugurl 'tags' %}?tag={{tag}}"> <button type ="button" class="btn btn-outline-info" >{{tag}}</button></a>
+      
+        {% endfor %}
+        </h3>
+    {% endif %}
+{{page.tags.similar_tags}}
+
+{{blogpages.title}}
+    {% comment %} {% for rel in page.related %}
+    {{rel.value}}
+    {% endfor %}
+    {{related}} {% endcomment %}
+
+<a href="{{ page.get_parent.url }}" class="btn btn-lg btn-outline-info btn-block ">Return to blog</a>
+      
+    
+
+</div>
+<br>
+
+{% endblock %}

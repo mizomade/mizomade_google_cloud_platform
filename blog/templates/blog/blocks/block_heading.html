@@ -1,0 +1,11 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% if self.size == 'h2' %}
+<h2>{{self.text}}</h2>
+
+{% else %}
+<h3>{{self.text}}</h3>
+{% endif %}
+
+{% image self.image fill-320x320 as mn %}
+    
+<img src= "{{mn.url}}">

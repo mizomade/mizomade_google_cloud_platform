@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+{% endblock extra_css %}
+<div class="container">
+{% block content %}
+
+{% comment %} <div style="position: relative;
+  text-align: center;
+  color: white;
+  ">
+<img src="{%static "images/wall.jpg" %}">
+<div class="centered"><h1><strong>THIAMNA CHI HRANG HRANG THINGREM</h1></strong>Mahni tuina tak lama hmasawn duh mi i nih chuan MizoMade hi i lo tangkai pui ngei kan beisei.
+<br>
+<a href="{% slugurl 'blog' %}" ><button class="btn-lg btn-outline-success" style="border:rounded-0;"><strong>MIZOMADE.com  </strong></button></a>
+
+</div>
+
+</div> {% endcomment %}
+<div class="centered">
+
+<a href="{% slugurl 'blog' %}" ><button class="btn-lg btn-outline-success" style="border:rounded-0;">MIZOMADE.com</button></a>
+
+
+</div>
+
+
+{{page.body|richtext}}
+
+{% endblock content %}
+</div>

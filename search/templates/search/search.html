@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags%}
+
+
+{% block body_class %}template-searchresults{% endblock %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+{% comment %}    <h1>Search</h1>
+
+    <form action="{% url 'search' %}" method="get">
+        <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
+        <input type="submit" value="Search" class="button">
+    </form>{% endcomment %}
+
+<div class=container style=padding:20px;>
+{% if category_results %}
+ Category results:
+<div class="container" style="padding:2em;">
+
+{% for categore in category_results %}
+<a href="{% slugurl 'category' %}?category={{categore.name}}" class="button btn-lg btn-primary" style="margin:10px;padding:10px;">{{categore.name}} </a>
+
+
+{% endfor %}
+</div>
+
+{% endif %}
+
+    {% if search_results %}
+<p>Search results for: "{{search_query}}"</p>
+        {% comment %} <ul> {% endcomment %}
+        <div class="row">
+        
+            {% for result in search_results %}
+                {% comment %} <li> {% endcomment %}<div class="column" style="padding:10px;">
+                    {% comment %} <h4><a href="{% pageurl result %}">{{ result }}</a></h4> {% endcomment %}
+                    
+<div class="card text-center bawmdte" style="min-width: 18rem;min-height:10rem;">
+
+  <div class="card-body text-dark">
+  
+ 
+    <h5 class="card-title">{{result.title}}</h5>
+    <p class="card-text">{{result.intro}}</p>
+     <a href="{% pageurl result %}" class="btn btn-primary ">Read.. 
+    </a>
+  </div>
+</div>
+{% for post in blogpages %}
+
+
+    {% with post=post.specific %}
+    {{post.Author}}
+    {% endwith %}
+    {% endfor %}
+
+
+
+
+
+
+
+
+
+
+                    {% if result.search_description %}
+                        {{ result.search_description }}
+                    {% endif %}
+                {% comment %} </li> {% endcomment %}</div>
+            {% endfor %}
+        {% comment %} </ul> {% endcomment %}</div>
+
+        {% if search_results.has_previous %}
+            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% if search_results.has_next %}
+            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
+        {% endif %}
+    {% elif search_query %}
+    <p style="padding:2em;">
+    <hr>
+        No results found for post
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

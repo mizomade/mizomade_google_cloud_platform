@@ -1,0 +1,1 @@
+from mizomade.wsgi import application as app
